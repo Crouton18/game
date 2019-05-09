@@ -34,7 +34,7 @@ img {
 <script language = "JavaScript">
 var numberOfMonster= 0, setupScore, setupMonster, names=["rat.gif"], catleft = 325, catright= 250, ratleft, ratright, countElement, howfast= 10, score = 0;
 
-//This function is the initial setup for the game aka score, sound, monster spawn
+/*This function is the initial setup for the game aka score, sound, monster spawn */
 function myFunction()
 {
 	spawntheMonster( 0 );
@@ -44,7 +44,7 @@ function myFunction()
 	document.getElementById('sound').play();
 }
 
-//Next four function are deticated for moving the cat and setting boundaries
+/*Next four function are deticated for moving the cat and setting boundaries */
 function leftArrowPressed()
 {
       var element = document.getElementById("cat");	
@@ -82,7 +82,7 @@ function downArrowPressed()
 		}
 }
 		
-//connects the id's of arrow keys and w,a,s,d to the previous functions to be able to move		
+/* connects the id's of arrow keys and w,a,s,d to the previous functions to be able to move	*/	
 function movetheguy(event){
 	switch (event.keyCode) {
            case 39:
@@ -119,7 +119,7 @@ function movetheguy(event){
 	}
 }
 
-//sets spawn, attributes, and clickablity of the rats 
+/* sets spawn, attributes, and clickablity of the rats */
 function spawntheMonster(monster){
 
 	var widthrandom = Math.floor(Math.random() * 112 )* 5 - 20;
@@ -138,7 +138,7 @@ function spawntheMonster(monster){
 	numberOfMonster++;
 }
 
-//moves the rats 
+/* moves the rats */
 function moveguydown(moveMonster){
 
 	if(parseInt(moveMonster.style.top)>= 900 ){
@@ -150,7 +150,7 @@ function moveguydown(moveMonster){
 		overlap(moveMonster);
 }
 
-//randomly spawns the rats 
+/* randomly spawns the rats */
 function randomspawn(){
 
     spawntheMonster(Math.floor(Math.random() * names.length));
@@ -173,7 +173,7 @@ function die(){
 	clearInterval(setupMonster);
 }
 
-//Compares hit boxes and checks to see if you die 
+/* Compares hit boxes and checks to see if you die */
 function overlap(obj){
 	catleft =parseInt(cat.style.right)+ 75;
 	catright=parseInt(cat.style.right);
@@ -192,7 +192,7 @@ if(rattop<catbot && ratbottom>cattop && ratright<catleft && ratleft>catright)
 		
 }
 
-//Switches difficulty and sound
+/* Switches difficulty and sound */
 function twospeeds(){
 
 	if(howfast== 30 ){//fast
@@ -250,7 +250,3 @@ function twospeeds(){
 </footer>
 </body>
 </html>
-
-  
-	
-   
