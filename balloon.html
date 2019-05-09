@@ -10,143 +10,247 @@ body{
 	font-family: memes, sans-serif;
 }
 .blackbox{
-	bg-color: black;
 	color: white;
 	width: 300px;
 }
 td{
 	height: 900px;
 }
+img, body{
+    -khtml-user-select: none;
+    -o-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+}
 </style>
 </head>
-<script language="JavaScript">
-var numberOfMonster=0, stupid, stupid2, names=["rat.gif"], catleft =325, catright=250, ratleft, ratright, countElement, howfast=10;
-function myFunction(){
-	spawntheguy(0);
-	document.all.coolscore.innerHTML=0;
-	stupid=setInterval(function(){document.all.coolscore.innerHTML=Number(document.all.coolscore.innerHTML)+1;}, 1000);
-	stupid2=setInterval(function(){spawntheguy(0);}, 3000);
-	 document.getElementById('sound').play();
+<script language = "JavaScript">
+var numberOfMonster= 0, setupScore, setupMonster, names=["rat.gif"], catleft = 325, catright= 250, ratleft, ratright, countElement, howfast= 10, score = 0;
+
+//This function is the initial setup for the game aka score, sound, monster spawn
+function myFunction()
+{
+	spawntheMonster( 0 );
+	document.all.coolscore.innerHTML= 0;
+	setupScore=setInterval(function(){score++; document.all.coolscore.innerHTML=score;}, 1000 );
+	setupMonster=setInterval(function(){spawntheMonster( 0 );}, 3000 );
+	document.getElementById('sound').play();
 }
-function leftArrowPressed() {
-                var element = document.getElementById("cat");
-                element.style.left = parseInt(element.style.left) - 20 + 'px';
-            }
 
-            function rightArrowPressed() {
-                var element = document.getElementById("cat");
-                element.style.left = parseInt(element.style.right) + 20 + 'px';
-            }
+//Next four function are deticated for moving the cat and setting boundaries
+function leftArrowPressed()
+{
+      var element = document.getElementById("cat");	
+				
+	  if(parseInt(element.style.right.substring(element.style.right.length - 2 , 0 )) > 0 ) {
+			element.style.right = parseInt(element.style.right) - 20 + 'px';			
+	  }
+				
+}         
 
-            function upArrowPressed() {
-                var element = document.getElementById("cat");
-                element.style.top = parseInt(element.style.top) - 20 + 'px';
-            }
+function rightArrowPressed() 
+{
+       var element = document.getElementById("cat");
+                    
+	    if(parseInt(element.style.right.substring(element.style.right.length - 2 , 0 )) < 480 ) {
+			  element.style.right = parseInt(element.style.right) + 20 + 'px';
+	     }
+}
 
-            function downArrowPressed() {
-                var element = document.getElementById("cat");
-                element.style.top = parseInt(element.style.top) + 20 + 'px';
-            }
-			
+function upArrowPressed() 
+{
+        var element = document.getElementById("cat");
+				
+        if(parseInt(element.style.top.substring(element.style.top.length - 2 , 0 )) > 0 ) {
+			   element.style.top = parseInt(element.style.top) - 20 + 'px';
+		}
+}
+
+function downArrowPressed() 
+{
+        var element = document.getElementById("cat");
+        
+		if(parseInt(element.style.top.substring(element.style.top.length - 2 , 0 )) < 740 ) {
+			   element.style.top = parseInt(element.style.top) + 20 + 'px';
+		}
+}
+		
+//connects the id's of arrow keys and w,a,s,d to the previous functions to be able to move		
 function movetheguy(event){
 	switch (event.keyCode) {
-                    case 37:
-                        leftArrowPressed();
-                    break;
+           case 39:
+             leftArrowPressed();
+             break;
 
-                    case 39:
-                        rightArrowPressed();
-                    break;
+           case 37:
+             rightArrowPressed();
+             break;
 
-                    case 38:
-                        upArrowPressed();
-                    break;
+           case 38:
+              upArrowPressed();
+              break;
 
-                    case 40:
-                        downArrowPressed();
-                    break;
-					}
+           case 40:
+              downArrowPressed();
+			  break;
+					
+		   case 68:
+              leftArrowPressed();
+			  break;
+					
+           case 65:
+              rightArrowPressed();
+              break;
+
+            case 87:
+               upArrowPressed();
+               break;
+
+            case 83:
+               downArrowPressed();
+               break;
+	}
 }
 
-function spawntheguy(guy){
-	var widthrandom=Math.floor(Math.random() * 112)*5-20;
-	widthrandom="position:absolute; right: "+widthrandom+"; top: 000;";
-	var z = document.createElement("IMG"); 
-    z.setAttribute("src", names[guy]);
+//sets spawn, attributes, and clickablity of the rats 
+function spawntheMonster(monster){
+
+	var widthrandom = Math.floor(Math.random() * 112 )* 5 - 20;
+	widthrandom     = "position:absolute; right: "+widthrandom+"; top: 000;";
+	var z           = document.createElement("IMG"); 
+	
+    z.setAttribute("src", names[monster]);
     z.setAttribute("style", widthrandom);
     z.setAttribute("width", "40");
-    z.setAttribute("id", numberOfMonster+"swag");
+	z.setAttribute("height", "54");
+    z.setAttribute("id", numberOfMonster+"mon");
     z.setAttribute("onLoad", "setInterval(moveguydown, 100, this);");
     z.setAttribute("onClick", "this.style.top=parseInt(this.style.top)-75;");
+	
     document.getElementById("back1").appendChild(z);
 	numberOfMonster++;
 }
 
-function moveguydown(goodthing){
-	if(parseInt(goodthing.style.top)>=900){
-		goodthing.style.top=-500;
-		goodthing.style.right=Math.floor(Math.random() * 112)*5-20;
+//moves the rats 
+function moveguydown(moveMonster){
+
+	if(parseInt(moveMonster.style.top)>= 900 ){
+		moveMonster.style.top= -500;
+		moveMonster.style.right=Math.floor(Math.random() * 112 )* 5 - 20;  //check this
 	}
 	else
-		goodthing.style.top=parseInt(goodthing.style.top)+howfast;
-	
-	if(parseInt(goodthing.style.top)>(500-parseInt(goodthing.height)) && parseInt(goodthing.style.top)<650)
-		overlap(goodthing);
+		moveMonster.style.top=parseInt(moveMonster.style.top)+howfast;
+		overlap(moveMonster);
 }
 
-function randomspawn()
-{
-spawntheguy(Math.floor(Math.random()*names.length));
+//randomly spawns the rats 
+function randomspawn(){
+
+    spawntheMonster(Math.floor(Math.random() * names.length));
 }
+
 
 function die(){
 	var highscore=document.all.coolscore.innerHTML;
 	var count;
-	for(count=0; count<numberOfMonster; count++){
-		countElement=document.getElementById(count+"swag");
-		back1.removeChild(countElement);
+	for(count= 0 ; count<numberOfMonster; count++){
+		countElement=document.getElementById(count+"mon");
+		document.getElementById("back1").removeChild(countElement);
 	}
-	document.all.coolscore.innerHTML="GAME OVER<br><span onClick='location.reload();'>Click to restart!</span><br>SCORE: "+highscore+"<font size='5'><br>Thanks to<br>Cat By: PRguitarman<br>Sound By: Jay Man<br>Rats By: Yacht Club Games";
-	clearInterval(stupid);
-	clearInterval(stupid2);
+	
+	numberOfMonster = 0;
+	document.all.coolscore.innerHTML=
+	"GAME OVER<br><span onClick='location.reload();'>Click to restart!</span><br>SCORE: "+score+
+	"<font size='5'><br>Thanks to<br>Cat By: PRguitarman<br>Sound By: Jay Man<br>Rats By: Yacht Club Games";
+	clearInterval(setupScore);
+	clearInterval(setupMonster);
 }
+
+//Compares hit boxes and checks to see if you die 
 function overlap(obj){
-	catleft =parseInt(cat.style.right)+75;
+	catleft =parseInt(cat.style.right)+ 75;
 	catright=parseInt(cat.style.right);
 	ratleft =parseInt(obj.style.right)+parseInt(obj.width);
 	ratright=parseInt(obj.style.right);
-			//document.all.leftbox.innerHTML=("id = "+obj.id+"<br>catleft = "+catleft+"<br>catright = "+catright+"<br>ratleft = "+ratleft+"<br>ratright = "+ratright);
-	if((ratleft>catright && ratright<catright) || (ratleft>catleft && ratright<catleft) || (ratleft<catleft && ratright>catright))
-			die(); 
+	
+    cattop =parseInt(cat.style.top);
+    catbot=parseInt(cat.style.top)+ 150;
+    rattop =parseInt(obj.style.top)+parseInt(obj.height);
+    ratbottom=parseInt(obj.style.top);	
+
+if(rattop<catbot && ratbottom>cattop && ratright<catleft && ratleft>catright)
+
+        die();
+		
+		
 }
+
+//Switches difficulty and sound
 function twospeeds(){
-	if(howfast==30){//fast
+
+	if(howfast== 30 ){//fast
 			back1.style.backgroundImage="url('large0.gif')";
-			howfast=10;}
-	if(howfast==10){//WAY too fast
+			howfast= 10;}
+	if(howfast== 10){//WAY too fast
 			back1.style.backgroundImage="url('large2.gif')";
-			howfast=30;}
+			howfast= 30;
+			document.getElementById('sound').src="sun.mp3";
+	        document.getElementById('sound').play();
+			}
 }
+
 </script>
 </head>
-<body onLoad="bg(large0.gif);" onKeyDown="" onkeyup="movetheguy(event);" bgcolor="black">
+<body onKeyDown="" onkeyup="movetheguy(event);" bgcolor="black">
+<center>
 <table border="1"  style="position: relative;">
  <tbody><tr>
   <td id="back1" width="560" style="vertical-align: text-top; font-size:400%; background-image: url('large0.gif'); position: relative;">
-		<div id="coolscore" align="center">
-			<span onclick="myFunction();"><font color="black" id="buttoncool" onmouseover="document.all.buttoncool.color=&#39;blue&#39;;" onmouseout="document.all.buttoncool.color=&#39;black&#39;;">CLICK HERE TO START</font></span>
-			<br><font size="50%">Use the arrow keys to move.</font><br><font size="5">Click on the rats to move them up.</font>
-		</div>
-	<br><br><br><br><img src="cat.gif" width="75" height="150" id="cat" style="position:absolute; right:250; top:500">
-	</td>
-  </tr>
- </tbody></table>
+  
+		<div class = "no-copy" id="coolscore" align="center">
+			<span onclick="myFunction();">
+			<font color="black" id="buttoncool" 
+			onmouseover="document.all.buttoncool.color=&#39;blue&#39;;" 
+			onmouseout="document.all.buttoncool.color=&#39;black&#39;;">CLICK HERE TO START<br></font></span>
+			
+			<span onclick="twospeeds();"><font size = "30" color="black" id="quick" >Click here for Insane mode</font></span>
+			<br><font size="6">Use the Arrow Keys or WASD to move</font><br><font size="5">Click on the rats to move them up</font>
 
-<audio id="sound" hidden>
-  <source src="sound.mp3" type="audio/mpeg">
+		</div>
+	
+	<br><br><br><br><img src="cat.gif" width="75" height="150" id="cat" style="position:absolute; right:250; top:500">
+					
+  </td>
+  </tr>
+ </tbody>
+ </table>
+ </center>
+<audio id="sound" hidden src="sound.mp3" type="audio/mpeg">
 </audio>
+<audio id="sound2" hidden src="sun.mp3" type="audio/mpeg">
+</audio>
+<footer style="border-top: 1px solid blue">
+ <a href="http://elvis.rowan.edu/~chretient7/"
+    title="Link to my home page">
+    Tyler Chretien, Eric Nguygen, Karishma
+ </a>
+
+<span style="float: right;">
+<a href="http://validator.w3.org/check/referer">HTML5</a> /
+<a href="http://jigsaw.w3.org/css-validator/check/referer?profile=css3">
+    CSS3 </a>
+</span>
+</footer>
 </body>
 </html>
+
   
 	
    
