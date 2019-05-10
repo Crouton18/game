@@ -1,21 +1,51 @@
-<html>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
-<title>Balloons Toss</title>
+  
+  <title>Balloons Toss</title>
+  <meta charset="utf-8" />
+
+  <meta name="Author" content="Tyler Chretien" />
+  <meta name="Author" content="Karishma" />
+  <meta name="Author" content="Eric Nguygen" />
+
+  <meta name="robots" content="noindex, nofollow" />
 <style>
+
+
+#SPAN_1:hover{color:blue;}
+#SPAN_1{color:black;}
+
+#SPAN_2:hover{color:blue;}
+#SPAN_2{color:black;}
+
+  table.center {
+    margin-left:auto; 
+    margin-right:auto;
+	width: 560px;
+	text-align: center;
+  }
+  
+
 @font-face{
 	font-family: memes;
 	src: url(DeterminationSansWeb.woff);
 }
+
 body{
 	font-family: memes, sans-serif;
+	background-color: black;
 }
+
 .blackbox{
 	color: white;
 	width: 300px;
 }
+
 td{
 	height: 900px;
 }
+
 img, body{
     -khtml-user-select: none;
     -o-user-select: none;
@@ -23,6 +53,7 @@ img, body{
     -webkit-user-select: none;
     user-select: none;
 }
+
 img {
   -webkit-user-drag: none;
   -khtml-user-drag: none;
@@ -30,8 +61,8 @@ img {
   -o-user-drag: none;
 }
 </style>
-</head>
-<script language = "JavaScript">
+
+<script>
 var numberOfMonster= 0, setupScore, setupMonster, names=["rat.gif"], catleft = 325, catright= 250, ratleft, ratright, countElement, howfast= 10, score = 0;
 
 /*This function is the initial setup for the game aka score, sound, monster spawn */
@@ -157,6 +188,7 @@ function randomspawn(){
 }
 
 
+/* This function displays the end screen and resets game*/
 function die(){
 	var highscore=document.all.coolscore.innerHTML;
 	var count;
@@ -208,38 +240,34 @@ function twospeeds(){
 
 </script>
 </head>
-<body onKeyDown="" onkeyup="movetheguy(event);" bgcolor="black">
-<center>
-<table border="1"  style="position: relative;">
- <tbody><tr>
-  <td id="back1" width="560" style="vertical-align: text-top; font-size:400%; background-image: url('large0.gif'); position: relative;">
-  
-		<div class = "no-copy" id="coolscore" align="center">
-			<span onclick="myFunction();">
-			<font color="black" id="buttoncool" 
-			onmouseover="document.all.buttoncool.color=&#39;blue&#39;;" 
-			onmouseout="document.all.buttoncool.color=&#39;black&#39;;">CLICK HERE TO START<br></font></span>
-			
-			<span onclick="twospeeds();"><font size = "30" color="black" id="quick" >Click here for Insane mode</font></span>
-			<br><font size="6">Use the Arrow Keys or WASD to move</font><br><font size="5">Click on the rats to move them up</font>
+<body onKeyDown="" onkeyup="movetheguy(event);" >
 
-		</div>
+<table class="center" style="position: relative;">
+ <tbody><tr>
+  <td id="back1"  style="vertical-align: text-top; font-size:400%; background-image: url('large0.gif'); position: relative;">
+  
+		<div class = "no-copy" id="coolscore">
+			<span onclick="myFunction();" id="SPAN_1">CLICK HERE TO START</span>
+			<span onclick="twospeeds();" id="SPAN_2" style="font-size:42px;">Click here for Insane mode</span>
+			<span style="font-size:24px;"><br>Use the Arrow Keys or WASD to move<br>Click on the rats to move them up</span>
+        </div>
+		
 	
-	<br><br><br><br><img src="cat.gif" width="75" height="150" id="cat" style="position:absolute; right:250; top:500">
+	<br><br><br><br><img alt = "cat" src="cat.gif" width="75" height="150" id="cat" style="position: absolute; right: 250px; top: 500px">
 					
   </td>
   </tr>
  </tbody>
  </table>
- </center>
-<audio id="sound" hidden src="sound.mp3" type="audio/mpeg">
+
+<audio id="sound" hidden src="sound.mp3" >
 </audio>
-<audio id="sound2" hidden src="sun.mp3" type="audio/mpeg">
+<audio id="sound2" hidden src="sun.mp3" >
 </audio>
 <footer style="border-top: 1px solid blue">
  <a href="http://elvis.rowan.edu/~chretient7/"
     title="Link to my home page">
-    Tyler Chretien, Eric Nguygen, Karishma
+    Tyler Chretien
  </a>
 
 <span style="float: right;">
